@@ -1,3 +1,15 @@
 #mapid {
     height: 400px;
 }
+
+.checked-star {
+  color: orange;
+}
+
+.navbar-brand {
+    font-size: x-large;
+}
+
+.fa-beer {
+    padding: 10px;
+}
