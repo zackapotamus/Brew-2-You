@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>You2Brew</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/38a3826985.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
         integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
         crossorigin="" />
@@ -13,14 +13,24 @@
   </head>
   <body>
   <section class="section">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <i class="fas fa-beer"></i>
+          <strong> You2Brew</strong>
+        </a>
+    
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    </nav>
     <div class="container">
-      <h1 class="title">
-        You2Brew 
-      </h1>
       <p class="subtitle">
          <strong>The app that takes YOU to the BREW!</strong>!  
       </p>
-
       <div class="container is-fluid">
         <div class="field has-addons">
           <div class="control">
@@ -39,12 +49,20 @@
             <div class="column is-6"> <br>
               <strong>Second column</strong> 
               <section class="section">
-                    <h2>Map Test</h2>
-                    <div id="mapid"></div>
+                 <div id="mapid"></div>
             </section>
             </div>
             <div class="column is-3"> <br>
               <strong>Selected Brewery</strong>
+                <p>Brewery Name:</p>
+                <p>Street Address:</p>
+                <p>Phone Number:</p>
+                <p>Rating(from one to 5):</p>
+                <span class="fa fa-star checked-star"></span>
+                <span class="fa fa-star checked-star"></span>
+                <span class="fa fa-star checked-star"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
             </div>
 
           </div>
@@ -67,7 +85,8 @@
             </table>
           </div>
           <div class="column is-3">
-            uber functionality here
+            <button class="button is-black"><i class="fab fa-uber"></i></button>
+            <p>Call an Uber</p>
           </div>         
          </div>
 
