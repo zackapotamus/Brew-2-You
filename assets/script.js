@@ -206,7 +206,7 @@ $(document).ready(function () {
                         // console.log('zipMap[response[zipCodes[i]]]' + zipMap[response[zipCodes[i]]]);
                         // if ("name" in zipMap[response[zipCodes[i]]]) {
                         var marker = L.marker([lat, lon]).addTo(myMap);
-                        marker.bindPopup(`<strong>${zipMap[[zipCodes[i]].name]}</strong><br>${zipMap[zipCodes[i]].type}`).openPopup();
+                        marker.bindPopup(`<strong>${zipMap[zipCodes[i]].name}</strong><br>${zipMap[zipCodes[i]].type}`).openPopup();
                         markers.push(marker);
                         // }
                     }
