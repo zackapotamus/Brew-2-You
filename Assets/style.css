@@ -1,3 +1,15 @@
 #mapid {
     height: 400px;
 }
+
+#previous-breweries {
+    height: 100%;
+}
+
+.brewery-item {
+    border-bottom: 1px solid rgb(233, 233, 233);
+}
+
+.brewery-item:last-child {
+    border-bottom: none;
+}

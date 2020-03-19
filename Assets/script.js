@@ -1,5 +1,6 @@
 class OpenBrewery {
-    constructor(name, type, street, city, state, zip, country, lat, lon, phone, website, taglist) {
+    constructor(id, name, type, street, city, state, zip, country, lat, lon, phone, website, taglist) {
+        this.id = id;
         this.name = name;
         this.type = type;
         this.street = street;
@@ -12,11 +13,36 @@ class OpenBrewery {
         this.phone = phone;
         this.website = website;
         this.taglist = taglist || [];
+        this.rating = 0;
     }
 }
 var openBreweries = [];
+var pastBreweries = [];
 
-$( document ).ready(function() {
+$(document).ready(function () {
+    function loadFromLocalStorage() {
+        pastBreweries = JSON.parse(localStorage.getItem("pastBreweries"));
+        updateDisplay();
+        $(".past-brewery").on("click", function (event) {
+            console.log(this);
+            console.log($(this));
+        });
+    }
+
+    function updateDisplay() {
+
+        var breweryList = $("#brewery-list").empty();
+        for (var i = 0; i < pastBreweries.length; i++) {
+            breweryList.append($("<li>").addClass("brewery-item").append($("<a>").attr("href", "#").attr("data-index", i).addClass("past-brewery").text(pastBreweries[i].name)));
+        }
+    }
+
+    // $(".past-brewery").on("click", function(event) {
+    //     console.log(this);
+    //     console.log($(this));
+    // })
+
+    loadFromLocalStorage();
     var searchBtn = $("#search-button");
     var citySearch = $("#brewery-search-city");
     var myMap = L.map('mapid').setView([33.7490, 84.3880], 12);
@@ -35,8 +61,10 @@ $( document ).ready(function() {
     $.ajax({
         url: "https://ipinfo.io",
         method: "GET",
-        data: {token: "d31c84f34635a4"}
-    }).then(function(response) {
+        data: {
+            token: "d31c84f34635a4"
+        }
+    }).then(function (response) {
         console.log(response);
         //responseDataEl.textContent += `${JSON.stringify(response, null, 2)}\n`;
         //console.log(JSON.stringify(response, null, 2))
@@ -48,31 +76,35 @@ $( document ).ready(function() {
         //populateTable();
     });
 
-     function breweryResult(city, state) {
+    function breweryResult(city, state) {
         $.ajax({
             url: "https://api.openbrewerydb.org/breweries",
             method: "GET",
-            data: {by_city: city, by_state: state, per_page: 50}
-        }).then(function(response) {
+            data: {
+                by_city: city,
+                by_state: state,
+                per_page: 50
+            }
+        }).then(function (response) {
             console.log(response)
             // clear out the old list
             openBreweries = [];
             //responseDataEl.textContent += `${JSON.stringify(response, null, 2)}\n`;
-            for (var i=0; i < response.length; i++) {
+            for (var i = 0; i < response.length; i++) {
                 // does it have lat/long?
-                openBreweries.push(new OpenBrewery(response[i].name, response[i].brewery_type, response[i].street,
-                                                   response[i].city, response[i].state, response[i].postal_code,
-                                                   response[i].country, response[i].latitude, response[i].longitude,
-                                                   response[i].phone, response[i].website, response[i].taglist));
+                openBreweries.push(new OpenBrewery(response[i].id, response[i].name, response[i].brewery_type, response[i].street,
+                    response[i].city, response[i].state, response[i].postal_code,
+                    response[i].country, response[i].latitude, response[i].longitude,
+                    response[i].phone, response[i].website, response[i].taglist));
                 if (!response[i].longitude) continue;
                 var marker = L.marker([parseFloat(response[i].latitude), parseFloat(response[i].longitude)]).addTo(myMap);
                 marker.bindPopup(`<strong>${response[i].name}</strong><br>${response[i].brewery_type}`).openPopup();
                 markers.push(marker);
             }
             console.log("populate the effing table")
-  
-              populateTable();
-      });
+
+            populateTable();
+        });
     }
 
     function populateTable() {
@@ -83,13 +115,14 @@ $( document ).ready(function() {
         //           <td>rgrimes@gmail.com</td>
         //           <td>555-555-5555</td>
         //         </tr>
-        for (var i=0; i < openBreweries.length; i++) {
+        for (var i = 0; i < openBreweries.length; i++) {
             var nameTd = $("<td>").text(openBreweries[i].name);
             var streetTd = $("<td>").text(openBreweries[i].street);
-            var phoneTd = $("<td>").text(openBreweries[i].phone) ;
+            // var cityTd = $("<td>").text(openBreweries[i].city)
+            var phoneTd = $("<td>").text(openBreweries[i].phone);
             var tableRow = $("<tr>").append(nameTd).append(streetTd).append(phoneTd);
             console.log(tableRow);
-            $("#brewery-table").append(tableRow);       
+            $("#brewery-table").append(tableRow);
         }
 
     }
