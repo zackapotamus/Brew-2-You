@@ -108,7 +108,7 @@ $(document).ready(function () {
     var myMap = L.map('mapid').setView([33.7490, 84.3880], 12);
     // Map variable
     var myLat, myLong;
-    // var myCity, myState;
+    var myCity, myState;
     var markers = [];
 
     // Api Call for MapBox api
@@ -139,6 +139,9 @@ $(document).ready(function () {
     });
 
     function breweryResult(city, state) {
+        console.log(city + ", " + state);
+        myCity = city;
+        myState = state;
         var latitudes = 0;
         var longitudes = 0;
         var count = 0;
@@ -193,12 +196,14 @@ $(document).ready(function () {
     // Populates table with the data called from the breweryResult function
     function populateTable() {
         // we'll populate the table based on what's in the openBreweries array
-
-        // <tr>
-        //           <td>Rick Grimes</td>
-        //           <td>rgrimes@gmail.com</td>
-        //           <td>555-555-5555</td>
-        //         </tr>
+        // console.log(openBreweries);
+        // if (!openBreweries) {
+        //     var cityState = `${myCity}, ${myState}`;
+        //     $("#city-state").text(cityState);
+        //     $("#brewery-results").attr("style", "display: none;");
+        // } else {
+        //     $("#brewery-results").attr("style", "display: block;")
+        // }
         var breweryTable = $("#brewery-table");
         breweryTable.empty()
         for (var i = 0; i < openBreweries.length; i++) {
