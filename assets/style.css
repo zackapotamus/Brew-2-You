@@ -1,0 +1,32 @@
+#mapid {
+    height: 400px;
+}
+
+.brewery-item {
+    border-bottom: 1px solid rgb(233, 233, 233);
+}
+
+.brewery-item:last-child {
+    border-bottom: none;
+}
+
+.checked-star {
+    color: orange;
+}
+
+.navbar-brand {
+    font-size: x-large;
+}
+
+.fa-beer {
+    padding: 10px;
+}
+
+.modal {
+    z-index: 9999;
+}
+
+#legal-button-level {
+    width: 100%;
+}
+
