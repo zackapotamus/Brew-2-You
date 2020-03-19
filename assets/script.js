@@ -198,7 +198,7 @@ $(document).ready(function () {
                         lats += lat;
                         longs += lon;
                         latLongCount++;
-                        if (zipMap[zipCodes[i]]) {
+                        if ("name" in zipMap[zipCodes[i]]) {
                             var marker = L.marker([lat, lon]).addTo(myMap);
                             marker.bindPopup(`<strong>${zipMap[zipCodes[i]].name}</strong><br>${zipMap[zipCodes[i]].type}`).openPopup();
                             markers.push(marker);
