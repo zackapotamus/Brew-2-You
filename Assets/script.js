@@ -1,3 +1,4 @@
+// VARIABLES:
 class OpenBrewery {
     constructor(id, name, type, street, city, state, zip, country, lat, lon, phone, website, taglist) {
         this.id = id;
@@ -33,6 +34,7 @@ var selectedBrewery = null;
 var selectedBreweryIndex = -1;
 
 $(document).ready(function () {
+    // Function to load from localStorage
     function loadFromLocalStorage() {
         pastBreweries = JSON.parse(localStorage.getItem("pastBreweries")) || [];
         updatePastBreweryDisplay();
@@ -48,7 +50,7 @@ $(document).ready(function () {
             _this.addClass("is-active");
         });
     }
-
+    // Function that adds data to selected brewery display on page load/on button click 
     function updateSelectedBreweryDisplay() {
         var brewery = pastBreweries[selectedBreweryIndex];
         var rating = "";
@@ -59,7 +61,6 @@ $(document).ready(function () {
                 rating += "<span class=\"fa fa-star\" data-rating=\"" + (i + 1) + "\"></span>";
             }
         }
-
         $("#brewery-name").text(brewery.name);
         $("#brewery-type").text(brewery.type);
         $("#brewery-address").text(brewery.street);
@@ -73,13 +74,12 @@ $(document).ready(function () {
             $("#brewery-website").empty();
         }
         $("#brewery-rating").html(rating);
-        // console.log(brewery)
         $(".fa-star").on("click", function () {
             brewery.rating = parseInt($(this).attr("data-rating"))
             updateSelectedBreweryDisplay();
         })
     }
-
+// Function that updates the past brewery display following an on click event
     function updatePastBreweryDisplay() {
 
         var breweryList = $("#brewery-list").empty();
@@ -95,13 +95,9 @@ $(document).ready(function () {
         }
     }
 
-    // $(".past-brewery").on("click", function(event) {
-    //     console.log(this);
-    //     console.log($(this));
-    // })
 
     loadFromLocalStorage();
-    var searchBtn = $("#search-button");
+    var searchBtn = $("#city-search-button");
     // Search Button 
     var citySearch = $("#brewery-search-city");
     // Search Input Field
@@ -127,24 +123,21 @@ $(document).ready(function () {
             token: "d31c84f34635a4"
         }
     }).then(function (response) {
-        // console.log(response);
-        //responseDataEl.textContent += `${JSON.stringify(response, null, 2)}\n`;
-        //console.log(JSON.stringify(response, null, 2))
         var latLong = response.loc.split(",");
         myLat = parseFloat(latLong[0]);
         myLong = parseFloat(latLong[1]);
         myMap.setView([myLat, myLong], 12);
         breweryResult(response.city, response.region);
-        //populateTable();
     });
 
     function breweryResult(city, state) {
-        console.log(city + ", " + state);
         myCity = city;
         myState = state;
         var latitudes = 0;
         var longitudes = 0;
-        var count = 0;
+        var latLongCount = 0;
+        var zipCodes = [];
+        var zipMap = {};
         var data = {
             by_city: city,
             per_page: 50
@@ -157,36 +150,65 @@ $(document).ready(function () {
             url: "https://api.openbrewerydb.org/breweries",
             method: "GET",
             data: data
-            // data: {
-            //     by_city: city,
-            //     by_state: state,
-            //     per_page: 50
-            // }
         }).then(function (response) {
-            // console.log(response)
-            // clear out the old list
             openBreweries = [];
-            //responseDataEl.textContent += `${JSON.stringify(response, null, 2)}\n`;
             for (var i = 0; i < response.length; i++) {
-                // does it have lat/long?
                 openBreweries.push(new OpenBrewery(response[i].id, response[i].name, response[i].brewery_type, response[i].street,
                     response[i].city, response[i].state, response[i].postal_code,
                     response[i].country, response[i].latitude, response[i].longitude,
                     response[i].phone, response[i].website_url, response[i].taglist));
+                if (response[i].postal_code) {
+                    zipCodes.push(response[i].postal_code);
+                    zipMap[response[i].postal_code] = {
+                        name: response[i].name,
+                        type: response[i].type
+                    }
+                }
                 if (!response[i].longitude) continue;
                 var lat = parseFloat(response[i].latitude);
                 var lon = parseFloat(response[i].longitude);
                 latitudes += lat;
                 longitudes += lon;
-                count++;
+                latLongCount++;
                 var marker = L.marker([lat, lon]).addTo(myMap);
                 marker.bindPopup(`<strong>${response[i].name}</strong><br>${response[i].brewery_type}`).openPopup();
                 markers.push(marker);
             }
-            if (count > 0) {
-                var latitude = latitudes / count;
-                var longitude = longitudes / count;
+            if (latLongCount > 0) {
+                var latitude = latitudes / latLongCount;
+                var longitude = longitudes / latLongCount;
                 myMap.setView([latitude, longitude], 12);
+            }
+
+            if (latLongCount == 0 && openBreweries.length > 0 && zipCodes.length > 0) {
+                console.log("breweries without lat/long but with zips encountered");
+                // do the api call to get lat/long for the zip codes we have
+                $.ajax({
+                    url: `https://www.zipcodeapi.com/rest/js-Nnn7hLGxyH23bgyKajKNzc2VzJWHRTnB4khm2upnBUmfRGBcJv0mWBWZtP37HhC1/multi-info.json/${zipCodes.join(",")}/degrees`,
+                    method: "GET",
+                }).then(function(response) {
+                    var lats = 0;
+                    var longs = 0;
+                    var latLongCount = 0;
+                    var zipCodes = Object.keys(response);
+                    for (var i=0; i < zipCodes.length; i++) {
+                        var lat = response[zipCodes[i]].lat;
+                        var lon = response[zipCodes[i]].lng;
+                        lats += lat;
+                        longs += long;
+                        latLongCount++;
+                        if (zipMap[zipCodes[i]]) {
+                            var marker = L.marker([lat, lon]).addTo(myMap);
+                            marker.bindPopup(`<strong>${zipMap[zipCodes[i]].name}</strong><br>${zipMap[zipCodes[i]].type}`).openPopup();
+                            markers.push(marker);
+                        }
+                    }
+                    var latitude = lats / latLongCount;
+                    var longitude = longs / latLongCount;
+                    if (latLongCount > 0) {
+                        myMap.setView([latitude, longitude], 12);
+                    }
+                });
             }
 
             populateTable();
@@ -196,29 +218,18 @@ $(document).ready(function () {
     // Populates table with the data called from the breweryResult function
     function populateTable() {
         // we'll populate the table based on what's in the openBreweries array
-        // console.log(openBreweries);
-        // if (!openBreweries) {
-        //     var cityState = `${myCity}, ${myState}`;
-        //     $("#city-state").text(cityState);
-        //     $("#brewery-results").attr("style", "display: none;");
-        // } else {
-        //     $("#brewery-results").attr("style", "display: block;")
-        // }
         var breweryTable = $("#brewery-table");
         breweryTable.empty()
         for (var i = 0; i < openBreweries.length; i++) {
             var nameTd = $("<td>").text(openBreweries[i].name);
             var streetTd = $("<td>").text(openBreweries[i].street);
-            // var cityTd = $("<td>").text(openBreweries[i].city)
             var phoneTd = $("<td>").text(openBreweries[i].phone);
             var buttonTd = $("<td>").append($("<button>").text("Add").addClass("button is-primary add-button is-small").attr("data-index", i))
             var tableRow = $("<tr>").append(nameTd).append(streetTd).append(phoneTd).append(buttonTd);
-            // console.log(tableRow);
             breweryTable.append(tableRow);
         }
         $(".add-button").on("click", function () {
             addBrewery(openBreweries[$(this).attr("data-index")]);
-            // updatePastBreweryDisplay();
         });
 
     }
@@ -232,7 +243,6 @@ $(document).ready(function () {
         event.preventDefault();
         var searchValue = citySearch.val();
         if (!searchValue) {
-            console.log("nothing to search");
             searchBtn.removeClass("is-loading");
             return;
         }

@@ -19,7 +19,6 @@
     <div class="modal-card">
       <header class="modal-card-head">
         <p class="modal-card-title has-text-centered">Are you 21 or older?</p>
-        <!-- <button class="delete" aria-label="close"></button> -->
       </header>
       <section class="modal-card-body">
         <p class="has-text-centered">You must be 21 or older to visit this site.</p>
@@ -69,17 +68,75 @@
           <div class="control">
             <!-- City Input Form -->
             <input class="input" type="text" placeholder="Enter a City" id="brewery-search-city">
+            <div class="field">
+              <label class="label">Package</label>
+              <p class="control">
+                <span class="select">
+                  <select>
+                    <option>Select your State</option>
+                    <option>Alabama</option>
+                    <option>Alaska</option>
+                    <option>Arizona</option>
+                    <option>Arkansas</option>
+                    <option>California</option>
+                    <option>Colorado</option>
+                    <option>Connecticut</option>
+                    <option>Delaware</option>
+                    <option>District of Columbia</option>
+                    <option>Florida</option>
+                    <option>Georgia</option>
+                    <option>Hawaii</option>
+                    <option>Idaho</option>
+                    <option>Illinois</option>
+                    <option>Indiana</option>
+                    <option>Iowa</option>
+                    <option>Kansas</option>
+                    <option>Kentucky</option>
+                    <option>Louisiana</option>
+                    <option>Maine</option>
+                    <option>Maryland</option>
+                    <option>Massachusetts</option>
+                    <option>Michigan</option>
+                    <option>Minnesota</option>
+                    <option>Mississippi</option>
+                    <option>Missouri</option>
+                    <option>Montana</option>
+                    <option>Nebraska</option>
+                    <option>Nevada</option>
+                    <option>New Mexico</option>
+                    <option>New York</option>
+                    <option>North Carolina</option>
+                    <option>North Dakota</option>
+                    <option>Ohio</option>
+                    <option>Oklahoma</option>
+                    <option>Oregon</option>
+                    <option>Pennsylvania</option>
+                    <option>Rhode Island</option>
+                    <option>South Carolina</option>
+                    <option>South Dakota</option>
+                    <option>Tennessee</option>
+                    <option>Texas</option>
+                    <option>Utah</option>
+                    <option>Vermont</option>
+                    <option>Virginia</option>
+                    <option>Washington</option>
+                    <option>West Virginia</option>
+                    <option>Wisconsin</option>
+                    <option>Wyoming</option>
+                  </select>
+                </span>
+              </p>
+            </div>
           </div>
           <div class="control">
             <!-- Search Button -->
-            <a class="button is-info" id="search-button">
+            <a class="button is-info" id="city-search-button">
               <i class="fas fa-search"></i>
             </a>
           </div>
         </div>
         <div class="columns">
           <div class="column is-3">
-            <!-- <h1 class="subtitle has-text-centered">My Breweries</h1> -->
             <div class="box" id="previous-breweries">
               <h1 class="is-size-4 title has-text-centered has-background-dark has-text-white">My Breweries</h1>
               <aside class="menu">
@@ -88,10 +145,9 @@
               </aside>
             </div>
           </div>
-          <div class="column is-6">
-            <!-- <strong>Second column</strong> -->
+          <div class="column is-6">>
             <div class="box">
-              <!-- <h2>Map Test</h2> -->
+<!-- Map function -->
               <div id="mapid"></div>
             </div>
           </div>
@@ -157,7 +213,6 @@
   <script src="Assets/script.js"></script>
 
 </body>
-
 
 
 </html>
