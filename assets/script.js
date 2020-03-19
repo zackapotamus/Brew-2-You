@@ -160,7 +160,7 @@ $(document).ready(function () {
                     response[i].phone, response[i].website_url, response[i].taglist));
                 if (response[i].postal_code) {
                     zipCodes.push(response[i].postal_code);
-                    zipMap[response[i].postal_code] = {
+                    zipMap[response[i].postal_code.substr(0,5)] = {
                         name: response[i].name,
                         type: response[i].type
                     }
@@ -203,6 +203,7 @@ $(document).ready(function () {
                         lats += lat;
                         longs += lon;
                         latLongCount++;
+                        // console.log(zipMap[response[zipCodes[i]]]);
                         if ("name" in zipMap[response[zipCodes[i]]]) {
                             var marker = L.marker([lat, lon]).addTo(myMap);
                             marker.bindPopup(`<strong>${zipMap[response[zipCodes[i]]].name}</strong><br>${zipMap[response[zipCodes[i]]].type}`).openPopup();
