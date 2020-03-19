@@ -73,7 +73,7 @@ $(document).ready(function () {
             $("#brewery-website").empty();
         }
         $("#brewery-rating").html(rating);
-        console.log(brewery)
+        // console.log(brewery)
         $(".fa-star").on("click", function () {
             brewery.rating = parseInt($(this).attr("data-rating"))
             updateSelectedBreweryDisplay();
@@ -127,7 +127,7 @@ $(document).ready(function () {
             token: "d31c84f34635a4"
         }
     }).then(function (response) {
-        console.log(response);
+        // console.log(response);
         //responseDataEl.textContent += `${JSON.stringify(response, null, 2)}\n`;
         //console.log(JSON.stringify(response, null, 2))
         var latLong = response.loc.split(",");
@@ -160,7 +160,7 @@ $(document).ready(function () {
             //     per_page: 50
             // }
         }).then(function (response) {
-            console.log(response)
+            // console.log(response)
             // clear out the old list
             openBreweries = [];
             //responseDataEl.textContent += `${JSON.stringify(response, null, 2)}\n`;
@@ -170,7 +170,6 @@ $(document).ready(function () {
                     response[i].city, response[i].state, response[i].postal_code,
                     response[i].country, response[i].latitude, response[i].longitude,
                     response[i].phone, response[i].website_url, response[i].taglist));
-                console.log(response[i].website_url);
                 if (!response[i].longitude) continue;
                 var lat = parseFloat(response[i].latitude);
                 var lon = parseFloat(response[i].longitude);
@@ -186,13 +185,12 @@ $(document).ready(function () {
                 var longitude = longitudes / count;
                 myMap.setView([latitude, longitude], 12);
             }
-            // console.log("populate the effing table")
 
             populateTable();
             searchBtn.removeClass("is-loading");
         });
     }
-// Populates table with the data called from the breweryResult function
+    // Populates table with the data called from the breweryResult function
     function populateTable() {
         // we'll populate the table based on what's in the openBreweries array
 
@@ -221,6 +219,10 @@ $(document).ready(function () {
     }
 
     searchBtn.on("click", function (event) {
+        doSearch();
+    });
+
+    function doSearch() {
         searchBtn.addClass("is-loading");
         event.preventDefault();
         var searchValue = citySearch.val();
@@ -230,19 +232,11 @@ $(document).ready(function () {
             return;
         }
         breweryResult(searchValue);
-    });
+    }
 
     citySearch.on('keyup', function (e) {
         if (e.keyCode === 13) {
-        searchBtn.addClass("is-loading");
-        event.preventDefault();
-        var searchValue = citySearch.val();
-        if (!searchValue) {
-            console.log("nothing to search");
-            searchBtn.removeClass("is-loading");
-            return;
-        }
-        breweryResult(searchValue);
+            doSearch()
         }
     });
 
@@ -255,7 +249,7 @@ $(document).ready(function () {
         loadFromLocalStorage();
     }
 
-    $("#twenty-one-plus").on("click", function() {
+    $("#twenty-one-plus").on("click", function () {
         $("#legal-modal").removeClass("is-active");
     })
 });
