@@ -196,7 +196,7 @@ $(document).ready(function () {
                         var lat = response[zipCodes[i]].lat;
                         var lon = response[zipCodes[i]].lng;
                         lats += lat;
-                        longs += long;
+                        longs += lon;
                         latLongCount++;
                         if (zipMap[zipCodes[i]]) {
                             var marker = L.marker([lat, lon]).addTo(myMap);
