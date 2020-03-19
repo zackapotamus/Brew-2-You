@@ -62,7 +62,11 @@ $(document).ready(function () {
             $("#brewery-website").empty();
         }
         $("#brewery-rating").html(rating);
-        console.log(brewery);
+        console.log(brewery)
+        $(".fa-star").on("click", function () {
+            brewery.rating = parseInt($(this).attr("data-rating"))
+            updateSelectedBreweryDisplay();
+        })
     }
 
     function updatePastBreweryDisplay() {
@@ -139,7 +143,7 @@ $(document).ready(function () {
                     response[i].city, response[i].state, response[i].postal_code,
                     response[i].country, response[i].latitude, response[i].longitude,
                     response[i].phone, response[i].website_url, response[i].taglist));
-                    console.log(response[i].website_url);
+                console.log(response[i].website_url);
                 if (!response[i].longitude) continue;
                 var marker = L.marker([parseFloat(response[i].latitude), parseFloat(response[i].longitude)]).addTo(myMap);
                 marker.bindPopup(`<strong>${response[i].name}</strong><br>${response[i].brewery_type}`).openPopup();
@@ -184,6 +188,4 @@ $(document).ready(function () {
         localStorage.setItem("pastBreweries", JSON.stringify(pastBreweries));
         loadFromLocalStorage();
     }
-
-
 });
