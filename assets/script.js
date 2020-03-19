@@ -180,7 +180,9 @@ $(document).ready(function () {
                 var longitude = longitudes / latLongCount;
                 myMap.setView([latitude, longitude], 12);
             }
-
+            console.log(zipMap);
+            // if ("name" in zipMap[zipCodes[i]])
+            console.log('("name" in zipMap["30040-0301"]): ' + ("name" in zipMap["30040-0301"]));
             if (latLongCount == 0 && openBreweries.length > 0 && zipCodes.length > 0) {
                 console.log("breweries without lat/long but with zips encountered");
                 // do the api call to get lat/long for the zip codes we have
@@ -188,19 +190,22 @@ $(document).ready(function () {
                     url: `https://www.zipcodeapi.com/rest/js-Nnn7hLGxyH23bgyKajKNzc2VzJWHRTnB4khm2upnBUmfRGBcJv0mWBWZtP37HhC1/multi-info.json/${zipCodes.join(",")}/degrees`,
                     method: "GET",
                 }).then(function(response) {
+                    console.log(response);
+                    console.log("inside the ajax 'then'")
                     var lats = 0;
                     var longs = 0;
                     var latLongCount = 0;
                     var zipCodes = Object.keys(response);
                     for (var i=0; i < zipCodes.length; i++) {
+                        console.log(response[zipCodes[i]]);
                         var lat = response[zipCodes[i]].lat;
                         var lon = response[zipCodes[i]].lng;
                         lats += lat;
                         longs += lon;
                         latLongCount++;
-                        if (zipMap[zipCodes[i]]) {
+                        if ("name" in zipMap[response[zipCodes[i]]]) {
                             var marker = L.marker([lat, lon]).addTo(myMap);
-                            marker.bindPopup(`<strong>${zipMap[zipCodes[i]].name}</strong><br>${zipMap[zipCodes[i]].type}`).openPopup();
+                            marker.bindPopup(`<strong>${zipMap[response[zipCodes[i]]].name}</strong><br>${zipMap[response[zipCodes[i]]].type}`).openPopup();
                             markers.push(marker);
                         }
                     }
