@@ -13,6 +13,7 @@
   </head>
   <body>
   <section class="section">
+    <!-- Title navbar -->
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item">
@@ -28,31 +29,37 @@
       </div>
     </nav>
     <div class="container">
+      <!-- App Description  -->
       <p class="subtitle">
          <strong>The app that takes YOU to the BREW!</strong>!  
       </p>
       <div class="container is-fluid">
         <div class="field has-addons">
           <div class="control">
+            <!-- City Input Form -->
             <input class="input" type="text" placeholder="Enter a City" id="brewery-search-city">
           </div>
           <div class="control">
+            <!-- Search Button -->
             <a class="button is-info" id="search-button">
-              Search
+              <i class="fas fa-search"></i>
             </a>
           </div>
         </div>
         <div class="columns">
             <div class="column is-3"> <br>
+              <!-- Past Visited Brewery List -->
              <strong> Past visited Breweries</strong>
             </div>
             <div class="column is-6"> <br>
               <strong>Second column</strong> 
               <section class="section">
+                <!-- Map -->
                  <div id="mapid"></div>
             </section>
             </div>
             <div class="column is-3"> <br>
+              <!-- Selected Brewery Item -->
               <strong>Selected Brewery</strong>
                 <p>Brewery Name:</p>
                 <p>Street Address:</p>
@@ -69,9 +76,11 @@
           
           <div class="columns">
           <div class="column is-3"> <br>
+            <!-- Team Icon -->
            <strong> Rebel Scum</strong>
           </div>
           <div class="column is-6"> <br>
+            <!-- Table of Brewery Results -->
             <table class="table is-narrow is-striped is-bordered">
               <thead>
                 <tr>
@@ -85,6 +94,7 @@
             </table>
           </div>
           <div class="column is-3">
+            <!-- Uber API functionality -->
             <button class="button is-black"><i class="fab fa-uber"></i></button>
             <p>Call an Uber</p>
           </div>         
