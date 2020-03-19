@@ -108,17 +108,17 @@
               <p><strong>Website</strong>: <span id="brewery-website"></span></p>
               <p><strong>Rating</strong>: <span id="brewery-rating"></p>
             </div>
-
+            
           </div>
 
         </div>
 
         <div class="columns">
           <div class="column is-2">
-            <strong> Rebel Scum</strong>
+           <img src="https://pluspng.com/img-png/wwf-logo-vector-png-1920px-world-wildlife-fund-vector-logo-1920.png" alt="WWF Logo Test">
           </div>
           <div class="column is-8">
-            <table class="table is-narrow is-striped is-bordered">
+            <table class="table is-narrow is-striped is-bordered" id="brewery-results">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -130,11 +130,16 @@
               <tbody id="brewery-table">
               </tbody>
             </table>
+            <div class="notification is-dark has-text-centered">
+              <button class="delete"></button>
+              <p class="is-size-4">No breweries were found in:  <span id="city-state"></span> <i class="fas fa-sad-cry"></i></p>
+              <p>Seach another city?</p>
+            </div>
           </div>
           <div class="column is-2">
             <!-- Uber API functionality -->
-            <button class="button is-black"><i class="fab fa-uber"></i></button>
-            <p>Call an Uber</p>
+            <a href="https://www.uber.com" target="_blank" class="button is-dark is-large"><i class="fab fa-uber is-size-2"></i></a>
+           <p>Call an Uber to the brewery!</p> 
           </div>         
          </div>
       </div>
@@ -152,5 +157,7 @@
   <script src="Assets/script.js"></script>
 
 </body>
+
+
 
 </html>
