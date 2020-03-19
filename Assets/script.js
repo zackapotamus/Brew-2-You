@@ -94,9 +94,9 @@ $(document).ready(function () {
     var citySearch = $("#brewery-search-city");
     var myMap = L.map('mapid').setView([33.7490, 84.3880], 12);
     var myLat, myLong;
-    var myCity, myState;
+    // var myCity, myState;
     var markers = [];
-    var responseDataEl = document.getElementById("response-data");
+    // var responseDataEl = document.getElementById("response-data");
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
@@ -124,14 +124,25 @@ $(document).ready(function () {
     });
 
     function breweryResult(city, state) {
+        var latitudes = 0;
+        var longitudes = 0;
+        var count = 0;
+        var data = {
+            by_city: city,
+            per_page: 50
+        }
+        if (state) {
+            data.by_state = state;
+        }
         $.ajax({
             url: "https://api.openbrewerydb.org/breweries",
             method: "GET",
-            data: {
-                by_city: city,
-                by_state: state,
-                per_page: 50
-            }
+            data: data
+            // data: {
+            //     by_city: city,
+            //     by_state: state,
+            //     per_page: 50
+            // }
         }).then(function (response) {
             console.log(response)
             // clear out the old list
@@ -145,13 +156,24 @@ $(document).ready(function () {
                     response[i].phone, response[i].website_url, response[i].taglist));
                 console.log(response[i].website_url);
                 if (!response[i].longitude) continue;
-                var marker = L.marker([parseFloat(response[i].latitude), parseFloat(response[i].longitude)]).addTo(myMap);
+                var lat = parseFloat(response[i].latitude);
+                var lon = parseFloat(response[i].longitude);
+                latitudes += lat;
+                longitudes += lon;
+                count++;
+                var marker = L.marker([lat, lon]).addTo(myMap);
                 marker.bindPopup(`<strong>${response[i].name}</strong><br>${response[i].brewery_type}`).openPopup();
                 markers.push(marker);
+            }
+            if (count > 0) {
+                var latitude = latitudes / count;
+                var longitude = longitudes / count;
+                myMap.setView([latitude, longitude], 12);
             }
             // console.log("populate the effing table")
 
             populateTable();
+            searchBtn.removeClass("is-loading");
         });
     }
 
@@ -163,6 +185,8 @@ $(document).ready(function () {
         //           <td>rgrimes@gmail.com</td>
         //           <td>555-555-5555</td>
         //         </tr>
+        var breweryTable = $("#brewery-table");
+        breweryTable.empty()
         for (var i = 0; i < openBreweries.length; i++) {
             var nameTd = $("<td>").text(openBreweries[i].name);
             var streetTd = $("<td>").text(openBreweries[i].street);
@@ -171,7 +195,7 @@ $(document).ready(function () {
             var buttonTd = $("<td>").append($("<button>").text("Add").addClass("button is-primary add-button is-small").attr("data-index", i))
             var tableRow = $("<tr>").append(nameTd).append(streetTd).append(phoneTd).append(buttonTd);
             // console.log(tableRow);
-            $("#brewery-table").append(tableRow);
+            breweryTable.append(tableRow);
         }
         $(".add-button").on("click", function () {
             addBrewery(openBreweries[$(this).attr("data-index")]);
@@ -179,6 +203,32 @@ $(document).ready(function () {
         });
 
     }
+
+    searchBtn.on("click", function (event) {
+        searchBtn.addClass("is-loading");
+        event.preventDefault();
+        var searchValue = citySearch.val();
+        if (!searchValue) {
+            console.log("nothing to search");
+            searchBtn.removeClass("is-loading");
+            return;
+        }
+        breweryResult(searchValue);
+    });
+
+    citySearch.on('keyup', function (e) {
+        if (e.keyCode === 13) {
+        searchBtn.addClass("is-loading");
+        event.preventDefault();
+        var searchValue = citySearch.val();
+        if (!searchValue) {
+            console.log("nothing to search");
+            searchBtn.removeClass("is-loading");
+            return;
+        }
+        breweryResult(searchValue);
+        }
+    });
 
     function addBrewery(brewery) {
         for (var i = 0; i < pastBreweries.length; i++) {
