@@ -15,6 +15,33 @@
 </head>
 
 <body>
+  <div class="modal is-active" id="legal-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title has-text-centered">Are you 21 or older?</p>
+        <!-- <button class="delete" aria-label="close"></button> -->
+      </header>
+      <section class="modal-card-body">
+        <p class="has-text-centered">You must be 21 or older to visit this site.</p>
+      </section>
+      <footer class="modal-card-foot has-text-centered">
+        <div class="level" id="legal-button-level">
+          <div class="level-left">
+            <div class="level-item">
+              <button class="button is-success is-large" id="twenty-one-plus">I am 21 or older</button>
+            </div>
+
+          </div>
+          <div class="level-right">
+            <div class="level-item">
+              <a href="https://www.disney.com" class="button is-danger is-large">I am under 21</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
   <section class="section">
     <div class="container">
       <h1 class="title">
@@ -36,7 +63,7 @@
           </div>
         </div>
         <div class="columns">
-          <div class="column is-3"> <br>
+          <div class="column is-3">
             <!-- <h1 class="subtitle has-text-centered">My Breweries</h1> -->
             <div class="box" id="previous-breweries">
               <h1 class="is-size-4 title has-text-centered has-background-dark has-text-white">My Breweries</h1>

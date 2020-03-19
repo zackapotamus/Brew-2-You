@@ -238,4 +238,8 @@ $(document).ready(function () {
         localStorage.setItem("pastBreweries", JSON.stringify(pastBreweries));
         loadFromLocalStorage();
     }
+
+    $("#twenty-one-plus").on("click", function() {
+        $("#legal-modal").removeClass("is-active");
+    })
 });

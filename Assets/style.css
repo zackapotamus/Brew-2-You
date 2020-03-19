@@ -25,3 +25,11 @@
 .fa-beer {
     padding: 10px;
 }
+
+.modal {
+    z-index: 9999;
+}
+
+#legal-button-level {
+    width: 100%;
+}
