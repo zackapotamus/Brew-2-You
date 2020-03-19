@@ -1,16 +1,27 @@
 class OpenBrewery {
     constructor(name, type, street, city, state, zip, country, lat, lon, phone, website, taglist) {
         this.name = name;
+        // Name of Brewery
         this.type = type;
+        // Type of Brewery
         this.street = street;
+        // Street Address of Brewery
         this.city = city;
+        // City of Brewery
         this.state = state;
+        // State in Brewery
         this.zip = zip;
+        // Zip Code of Brewery
         this.country = country;
+        // Country of Brewery
         this.latitude = lat;
+        // Latitude of Brewery
         this.longitude = lon;
+        // Longitude of Brewery
         this.phone = phone;
+        // Phone Number of Brewery
         this.website = website;
+        // Website of Brewery
         this.taglist = taglist || [];
     }
 }
@@ -18,12 +29,16 @@ var openBreweries = [];
 
 $( document ).ready(function() {
     var searchBtn = $("#search-button");
+    // Search Button 
     var citySearch = $("#brewery-search-city");
+    // Search Input Field
     var myMap = L.map('mapid').setView([33.7490, 84.3880], 12);
+    // Map variable
     var myLat, myLong;
     var myCity, myState;
     var markers = [];
     var responseDataEl = document.getElementById("response-data");
+    // Api Call for MapBox api
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
@@ -47,7 +62,7 @@ $( document ).ready(function() {
         breweryResult(response.city, response.region);
         //populateTable();
     });
-
+    // Creates the Brewery result object
      function breweryResult(city, state) {
         $.ajax({
             url: "https://api.openbrewerydb.org/breweries",
@@ -74,7 +89,7 @@ $( document ).ready(function() {
               populateTable();
       });
     }
-
+// Populates table with the data called from the breweryResult function
     function populateTable() {
         // we'll populate the table based on what's in the openBreweries array
 
