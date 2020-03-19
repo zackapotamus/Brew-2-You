@@ -91,7 +91,7 @@
           <div class="column is-6">
             <!-- <strong>Second column</strong> -->
             <div class="box">
-              <!-- <h2>Map Test</h2> -->
+              <h1 class="is-size-4 title has-text-centered has-background-dark has-text-white" id="map-location">Location</h1>
               <div id="mapid"></div>
             </div>
           </div>
@@ -117,7 +117,7 @@
           <div class="column is-2">
            <img src="https://pluspng.com/img-png/wwf-logo-vector-png-1920px-world-wildlife-fund-vector-logo-1920.png" alt="WWF Logo Test">
           </div>
-          <div class="column is-8">
+          <div class="column is-8" id="results-column">
             <table class="table is-narrow is-striped is-bordered" id="brewery-results">
               <thead>
                 <tr>
@@ -130,9 +130,9 @@
               <tbody id="brewery-table">
               </tbody>
             </table>
-            <div class="notification is-dark has-text-centered">
+            <div class="notification is-dark has-text-centered" id="no-breweries" style="display: none;">
               <button class="delete"></button>
-              <p class="is-size-4">No breweries were found in:  <span id="city-state"></span> <i class="fas fa-sad-cry"></i></p>
+              <p class="is-size-4">No breweries were found in <span id="city-state"></span> <i class="fas fa-sad-cry"></i></p>
               <p>Seach another city?</p>
             </div>
           </div>

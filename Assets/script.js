@@ -142,6 +142,7 @@ $(document).ready(function () {
         console.log(city + ", " + state);
         myCity = city;
         myState = state;
+        $("#map-location").text(cityStateDisplay());
         var latitudes = 0;
         var longitudes = 0;
         var count = 0;
@@ -193,17 +194,27 @@ $(document).ready(function () {
             searchBtn.removeClass("is-loading");
         });
     }
+
+    function cityStateDisplay() {
+        return myState ? `${myCity}, ${myState}` : `${myCity}`;
+    }
     // Populates table with the data called from the breweryResult function
     function populateTable() {
+        breweryResultsTable = $("#brewery-results");
+        cityStateSpan = $("#city-state");
+        noBreweriesNotification = $("#no-breweries");
         // we'll populate the table based on what's in the openBreweries array
-        // console.log(openBreweries);
-        // if (!openBreweries) {
-        //     var cityState = `${myCity}, ${myState}`;
-        //     $("#city-state").text(cityState);
-        //     $("#brewery-results").attr("style", "display: none;");
-        // } else {
-        //     $("#brewery-results").attr("style", "display: block;")
-        // }
+        console.log("populateTable() called. openBreweries length: " + openBreweries.length);
+        if (openBreweries.length === 0) {
+            document.location.href = "#results-column";
+            var cityState = cityStateDisplay();
+            cityStateSpan.text(cityState);
+            breweryResultsTable.attr("style", "display: none;");
+            noBreweriesNotification.attr("style", "display: block;");
+        } else {
+            noBreweriesNotification.attr("style", "display: none;");
+            breweryResultsTable.attr("style", "display: block;");
+        }
         var breweryTable = $("#brewery-table");
         breweryTable.empty()
         for (var i = 0; i < openBreweries.length; i++) {
