@@ -162,7 +162,7 @@ $(document).ready(function () {
                     zipCodes.push(response[i].postal_code);
                     zipMap[response[i].postal_code.substr(0, 5)] = {
                         name: response[i].name,
-                        type: response[i].type
+                        type: response[i].brewery_type
                     }
                 }
                 if (!response[i].longitude) continue;
@@ -206,7 +206,7 @@ $(document).ready(function () {
                         // console.log('zipMap[response[zipCodes[i]]]' + zipMap[response[zipCodes[i]]]);
                         // if ("name" in zipMap[response[zipCodes[i]]]) {
                         var marker = L.marker([lat, lon]).addTo(myMap);
-                        marker.bindPopup(`<strong>${zipMap[response[zipCodes[i]]].name}</strong><br>${zipMap[response[zipCodes[i]]].type}`).openPopup();
+                        marker.bindPopup(`<strong>${zipMap[[zipCodes[i]].name]}</strong><br>${zipMap[zipCodes[i]].type}`).openPopup();
                         markers.push(marker);
                         // }
                     }
