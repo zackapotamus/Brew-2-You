@@ -37,8 +37,9 @@
         </div>
         <div class="columns">
           <div class="column is-3"> <br>
-            <h1 class="subtitle has-text-centered">My Breweries</h1>
+            <!-- <h1 class="subtitle has-text-centered">My Breweries</h1> -->
             <div class="box" id="previous-breweries">
+              <h1 class="is-size-4 title has-text-centered has-background-dark has-text-white">My Breweries</h1>
               <aside class="menu">
                 <ul class="menu-list" id="brewery-list">
                 </ul>
@@ -53,7 +54,19 @@
             </div>
           </div>
           <div class="column is-3"> <br>
-            <strong>Selected Brewery</strong>
+            <div class="box" id="previous-breweries">
+              <h1 class="is-size-4 title has-text-centered has-background-dark has-text-white">Selected Brewery</h1>
+              <p><strong>Name</strong>: <span id="brewery-name"></span></p>
+              <p><strong>Type</strong>: <span id="brewery-type"></span></p>
+              <p><strong>Address</strong>: <span id="brewery-address"></span></p>
+              <p><strong>City</strong>: <span id="brewery-city"></span></p>
+              <p><strong>State</strong>: <span id="brewery-state"></span></p>
+              <p><strong>Zip Code</strong>: <span id="brewery-zip"></span></p>
+              <p><strong>Phone</strong>: <span id="brewery-phone"></span></p>
+              <p><strong>Website</strong>: <span id="brewery-website"></span></p>
+              <p><strong>Rating</strong>: <span id="brewery-rating"></p>
+            </div>
+
           </div>
 
         </div>
@@ -67,8 +80,9 @@
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Street</th>
+                  <th>Address</th>
                   <th>Phone</th>
+                  <th>Add Brewery</th>
                 </tr>
               </thead>
               <tbody id="brewery-table">
