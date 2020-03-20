@@ -162,7 +162,7 @@ $(document).ready(function () {
                     zipCodes.push(response[i].postal_code);
                     zipMap[response[i].postal_code.substr(0, 5)] = {
                         name: response[i].name,
-                        type: response[i].type
+                        type: response[i].brewery_type
                     }
                 }
                 if (!response[i].longitude) continue;
@@ -181,7 +181,6 @@ $(document).ready(function () {
                 myMap.setView([latitude, longitude], 12);
             }
             console.log(zipMap);
-            console.log('("name" in zipMap["30040-0301"]): ' + ("name" in zipMap["30040-0301"]));
             if (latLongCount == 0 && openBreweries.length > 0 && zipCodes.length > 0) {
                 console.log("breweries without lat/long but with zips encountered");
                 // do the api call to get lat/long for the zip codes we have
@@ -202,9 +201,9 @@ $(document).ready(function () {
                         lats += lat;
                         longs += lon;
                         latLongCount++;
-                        console.log('zipMap[response[zipCodes[i]]]' + zipMap[response[zipCodes[i]]]);
+                      
                         var marker = L.marker([lat, lon]).addTo(myMap);
-                        marker.bindPopup(`<strong>${zipMap[response[zipCodes[i]]].name}</strong><br>${zipMap[response[zipCodes[i]]].type}`).openPopup();
+                        marker.bindPopup(`<strong>${zipMap[zipCodes[i]].name}</strong><br>${zipMap[zipCodes[i]].type}`).openPopup();
                         markers.push(marker);
                     }
                     var latitude = lats / latLongCount;
