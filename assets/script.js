@@ -76,6 +76,7 @@ $(document).ready(function () {
         $("#brewery-rating").html(rating);
         $(".fa-star").on("click", function () {
             brewery.rating = parseInt($(this).attr("data-rating"))
+            localStorage.setItem("pastBreweries", JSON.stringify(pastBreweries));
             updateSelectedBreweryDisplay();
         })
     }
@@ -97,9 +98,10 @@ $(document).ready(function () {
 
 
     loadFromLocalStorage();
-    var searchBtn = $("#city-search-button");
+    var searchBtn = $(".search-button");
     // Search Button 
     var citySearch = $("#brewery-search-city");
+    var stateSelect = $("#state-select");
     // Search Input Field
     var myMap = L.map('mapid').setView([33.7490, 84.3880], 12);
     // Map variable
@@ -178,7 +180,11 @@ $(document).ready(function () {
             if (latLongCount > 0) {
                 var latitude = latitudes / latLongCount;
                 var longitude = longitudes / latLongCount;
-                myMap.setView([latitude, longitude], 12);
+                if (!city) {
+                    myMap.setView([latitude, longitude], 8);
+                } else {
+                    myMap.setView([latitude, longitude], 12);
+                }
             }
             console.log(zipMap);
             if (latLongCount == 0 && openBreweries.length > 0 && zipCodes.length > 0) {
@@ -201,7 +207,7 @@ $(document).ready(function () {
                         lats += lat;
                         longs += lon;
                         latLongCount++;
-                      
+
                         var marker = L.marker([lat, lon]).addTo(myMap);
                         marker.bindPopup(`<strong>${zipMap[zipCodes[i]].name}</strong><br>${zipMap[zipCodes[i]].type}`).openPopup();
                         markers.push(marker);
@@ -220,7 +226,13 @@ $(document).ready(function () {
     }
 
     function cityStateDisplay() {
-        return myState ? `${myCity}, ${myState}` : `${myCity}`;
+        if (myCity && myState) {
+            return `${myCity}, ${myState}`;
+        } else if (myCity && !myState) {
+            return myCity;
+        } else {
+            return myState;
+        }
     }
     // Populates table with the data called from the breweryResult function
     function populateTable() {
@@ -247,7 +259,7 @@ $(document).ready(function () {
             var nameTd = $("<td>").text(openBreweries[i].name);
             var streetTd = $("<td>").text(openBreweries[i].street);
             var phoneTd = $("<td>").text(openBreweries[i].phone);
-            var buttonTd = $("<td>").append($("<button>").text("Add").addClass("button is-primary add-button is-small").attr("data-index", i))
+            var buttonTd = $("<td>").addClass("has-text-centered").append($("<button>").text("Add").addClass("button is-info add-button is-small").attr("data-index", i))
             var tableRow = $("<tr>").append(nameTd).append(streetTd).append(phoneTd).append(buttonTd);
             breweryTable.append(tableRow);
         }
@@ -262,17 +274,29 @@ $(document).ready(function () {
     });
 
     function doSearch() {
-        searchBtn.addClass("is-loading");
         event.preventDefault();
-        var searchValue = citySearch.val();
-        if (!searchValue) {
+        searchBtn.addClass("is-loading");
+        var citySearchValue = citySearch.val();
+        var stateSearchValue = stateSelect.val();
+        if (!(citySearchValue || stateSearchValue != "Select Your State")) {
             searchBtn.removeClass("is-loading");
             return;
         }
-        breweryResult(searchValue);
+        stateSelect.prop('selectedIndex', 0)
+        if (stateSearchValue == "Select Your State") {
+            breweryResult(citySearchValue);
+        } else {
+            breweryResult(citySearchValue, stateSearchValue);
+        }
     }
 
     citySearch.on('keyup', function (e) {
+        if (e.keyCode === 13) {
+            doSearch()
+        }
+    });
+
+    stateSelect.on('keyup', function (e) {
         if (e.keyCode === 13) {
             doSearch()
         }
@@ -289,5 +313,6 @@ $(document).ready(function () {
 
     $("#twenty-one-plus").on("click", function () {
         $("#legal-modal").removeClass("is-active");
+        $("html").removeClass("is-clipped");
     })
 });
