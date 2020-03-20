@@ -46,3 +46,9 @@ table th {
 #logo {
     line-height: 0.5rem;
 }
+
+#results-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

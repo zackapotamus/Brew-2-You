@@ -282,6 +282,7 @@ $(document).ready(function () {
             searchBtn.removeClass("is-loading");
             return;
         }
+        stateSelect.prop('selectedIndex', 0)
         if (stateSearchValue == "Select Your State") {
             breweryResult(citySearchValue);
         } else {

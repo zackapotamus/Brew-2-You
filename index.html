@@ -42,33 +42,34 @@
   </div>
 
   <!-- Title navbar -->
-  <nav class="navbar has-background-dark" role="navigation" aria-label="main navigation">
+  <nav class="navbar has-background-dark" role="navigation" aria-label="main navigation" id="top-nav">
     <div class="navbar-brand">
       <a class="navbar-item has-text-white">
         <i class="fas fa-beer"></i>
         <strong id="logo"> Brew2You</strong>
         <h1 class="subtitle is-size-5 has-text-light">
           &nbsp;&nbsp;&nbsp; Find brew near you!</h1>
-        </a>
-        
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-        <div class="navbar-end">
-        <a href="assets/contact.html" class="navbar-item has-text-light is-size-4">
-          Contact
-        </a>
-      </div>
-      </div>
-    </nav>
-    <div class="container">
-      <!-- <h1 class="title">
+      </a>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+        data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-end">
+      <a href="assets/contact.html" class="navbar-item has-text-light is-size-4">
+        Contact
+      </a>
+    </div>
+    </div>
+  </nav>
+  <div class="container">
+    <!-- <h1 class="title">
       </h1> -->
-      <!-- App Description  -->
-      <!-- <p class="subtitle">
+    <!-- App Description  -->
+    <!-- <p class="subtitle">
       </p> -->
     <div class="block">
       <div class="level" id="search-level">
@@ -194,7 +195,7 @@
       </div>
 
       <div class="columns">
-        <div class="column is-2">
+        <div class="column is-2 is-hidden-mobile">
           <img src="https://pluspng.com/img-png/wwf-logo-vector-png-1920px-world-wildlife-fund-vector-logo-1920.png"
             alt="WWF Logo Test">
         </div>
@@ -215,10 +216,10 @@
             <button class="delete"></button>
             <p class="is-size-4">No breweries were found in <span id="city-state"></span> <i class="fas fa-sad-cry"></i>
             </p>
-            <p>Seach another city?</p>
+            <p><a href="#top-nav">Search another city?</a></p>
           </div>
         </div>
-        <div class="column is-2">
+        <div class="column is-2 is-hidden-mobile">
           <!-- Uber API functionality -->
           <a href="https://www.uber.com" target="_blank" class="button is-dark is-large"><i
               class="fab fa-uber is-size-2"></i></a>
