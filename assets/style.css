@@ -1,57 +1,73 @@
 body {
-    font-family: 'Kanit', sans-serif;
+  font-family: "Kanit", sans-serif;
 }
 #mapid {
-    height: 400px;
+  height: 400px;
 }
 
 .brewery-item {
-    border-bottom: 1px solid rgb(233, 233, 233);
+  border-bottom: 1px solid rgb(233, 233, 233);
 }
 
 .brewery-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .checked-star {
-    color: orange;
+  color: orange;
 }
 
 .navbar-brand {
-    font-size: x-large;
+  font-size: x-large;
 }
 
 .fa-beer {
-    padding: 10px;
+  padding: 10px;
 }
 
 .modal {
-    z-index: 9999;
+  z-index: 9999;
 }
 
 #legal-button-level {
-    width: 100%;
+  width: 100%;
 }
 
 table td,
 table th {
-    vertical-align: middle !important;
+  vertical-align: middle !important;
 }
 
 .has-background-dark.has-text-white {
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
 #search-level {
-    margin: 0.5rem 20% 1rem 20%;
+  margin: 0.5rem 20% 1rem 20%;
 }
 
 #logo {
-    line-height: 0.5rem;
+  line-height: 0.5rem;
 }
 
 #results-column {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#back-button {
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  #back-button {
+    display: block;
+  }
+  .navbar-end {
+    display: none;
+  }
+  #burger-menu {
+    display: none;
+  }
 }
