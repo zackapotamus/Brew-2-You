@@ -11,6 +11,10 @@
     integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
     crossorigin="" />
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 </head>
 
 <body>
@@ -41,6 +45,7 @@
     </div>
   </div>
 
+<<<<<<< HEAD
     <!-- Title navbar -->
     <nav class="navbar has-background-dark" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
@@ -128,6 +133,48 @@
                   </select>
                 </span>
               </p>
+=======
+  <!-- Title navbar -->
+  <nav class="navbar has-background-dark" role="navigation" aria-label="main navigation" id="top-nav">
+    <div class="navbar-brand">
+      <a class="navbar-item has-text-white">
+        <!-- <i class="fas fa-beer"></i>
+        <strong id="logo"> Brew2You</strong>
+        <h1 class="subtitle is-size-5 has-text-light">
+          &nbsp;&nbsp;&nbsp; Find brew near you!</h1> -->
+        <img src="assets/images/project1logo.png">
+      </a>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+        data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-end">
+      <a href="assets/contact.html" class="navbar-item has-text-light is-size-4">
+        Contact
+      </a>
+    </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="block">
+      <div class="level" id="search-level">
+        <div class="level-item">
+          <div class="field has-addons">
+            <div class="control">
+              <!-- City Input Form -->
+              <input class="input" type="text" placeholder="Enter a City" id="brewery-search-city">
+
+            </div>
+            <div class="control">
+              <!-- Search Button -->
+              <a class="button is-info search-button">
+                <i class="fas fa-search"></i>
+              </a>
+>>>>>>> 17f36519e4891014785e28d48d44f72dcb136485
             </div>
           </div>
           <div class="control">
@@ -172,9 +219,37 @@
 
         </div>
 
+<<<<<<< HEAD
         <div class="columns">
           <div class="column is-2">
            <img src="https://pluspng.com/img-png/wwf-logo-vector-png-1920px-world-wildlife-fund-vector-logo-1920.png" alt="WWF Panda">
+=======
+      </div>
+
+      <div class="columns">
+        <div class="column is-2 is-hidden-mobile">
+          <img src="assets/images/project1beermug.png"
+            alt="beer mug">
+        </div>
+        <div class="column is-8" id="results-column">
+          <table class="table is-narrow is-striped is-bordered is-hoverable" id="brewery-results">
+            <thead>
+              <tr class="has-background-dark has-text-white">
+                <th class="has-text-white has-text-centered">Name</th>
+                <th class="has-text-white has-text-centered">Address</th>
+                <th class="has-text-white has-text-centered">Phone</th>
+                <th class="has-text-white has-text-centered">Add Brewery</th>
+              </tr>
+            </thead>
+            <tbody id="brewery-table">
+            </tbody>
+          </table>
+          <div class="notification is-dark has-text-centered" id="no-breweries" style="display: none;">
+            <button class="delete"></button>
+            <p class="is-size-4">No breweries were found in <span id="city-state"></span> <i class="fas fa-sad-cry"></i>
+            </p>
+            <p><a href="#top-nav">Search another city?</a></p>
+>>>>>>> 17f36519e4891014785e28d48d44f72dcb136485
           </div>
           <div class="column is-8" id="results-column">
             <table class="table is-narrow is-striped is-bordered" id="brewery-results">
