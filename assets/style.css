@@ -52,3 +52,14 @@ table th {
     justify-content: center;
     align-items: center;
 }
+
+
+
+
+@media only screen and (min-width: 600px) {
+ #back-button{
+display: none;
+
+ }
+
+}
