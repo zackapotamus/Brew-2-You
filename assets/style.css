@@ -52,3 +52,19 @@ table th {
     justify-content: center;
     align-items: center;
 }
+
+#back-button{
+    display: none;
+     }
+
+@media only screen and (max-width: 600px) {
+    #back-button{
+   display: block;
+    }
+   .navbar-end{
+    display: none;
+   }
+   #burger-menu{
+    display: none;
+   }
+   }
