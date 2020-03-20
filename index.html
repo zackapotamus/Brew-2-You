@@ -21,7 +21,7 @@
         <p class="modal-card-title has-text-centered">Are you 21 or older?</p>
       </header>
       <section class="modal-card-body">
-        <p class="has-text-centered">You must be 21 or older to visit this site.</p>
+        <p class="has-text-centered">You must be 21 years of age or older to visit this site.</p>
       </section>
       <footer class="modal-card-foot has-text-centered">
         <div class="level" id="legal-button-level">
@@ -41,168 +41,190 @@
     </div>
   </div>
 
-    <!-- Title navbar -->
-    <nav class="navbar has-background-dark" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <a class="navbar-item has-text-white">
-          <i class="fas fa-beer"></i>
-          <strong> Brew2You</strong> <h1 class="subtitle is-size-5 has-text-light">
+  <!-- Title navbar -->
+  <nav class="navbar has-background-dark" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item has-text-white">
+        <i class="fas fa-beer"></i>
+        <strong id="logo"> Brew2You</strong>
+        <h1 class="subtitle is-size-5 has-text-light">
           &nbsp;&nbsp;&nbsp; Find brew near you!</h1>
-        </a>
-    
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-    </nav>
-    <div class="container">
-      <h1 class="title">
-      </h1>
-      <!-- App Description  -->
-      <!-- <p class="subtitle">
+      </a>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+        data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  </nav>
+  <div class="container">
+    <!-- <h1 class="title">
+    </h1> -->
+    <!-- App Description  -->
+    <!-- <p class="subtitle">
       </p> -->
-      <div class="block">
-        <div class="field has-addons">
-          <div class="control">
-            <!-- City Input Form -->
-            <input class="input" type="text" placeholder="Enter a City" id="brewery-search-city">
-            <div class="field">
-              <p class="control">
-                <span class="select">
-                  <select>
-                    <option>Select your State</option>
-                    <option>Alabama</option>
-                    <option>Alaska</option>
-                    <option>Arizona</option>
-                    <option>Arkansas</option>
-                    <option>California</option>
-                    <option>Colorado</option>
-                    <option>Connecticut</option>
-                    <option>Delaware</option>
-                    <option>District of Columbia</option>
-                    <option>Florida</option>
-                    <option>Georgia</option>
-                    <option>Hawaii</option>
-                    <option>Idaho</option>
-                    <option>Illinois</option>
-                    <option>Indiana</option>
-                    <option>Iowa</option>
-                    <option>Kansas</option>
-                    <option>Kentucky</option>
-                    <option>Louisiana</option>
-                    <option>Maine</option>
-                    <option>Maryland</option>
-                    <option>Massachusetts</option>
-                    <option>Michigan</option>
-                    <option>Minnesota</option>
-                    <option>Mississippi</option>
-                    <option>Missouri</option>
-                    <option>Montana</option>
-                    <option>Nebraska</option>
-                    <option>Nevada</option>
-                    <option>New Mexico</option>
-                    <option>New York</option>
-                    <option>North Carolina</option>
-                    <option>North Dakota</option>
-                    <option>Ohio</option>
-                    <option>Oklahoma</option>
-                    <option>Oregon</option>
-                    <option>Pennsylvania</option>
-                    <option>Rhode Island</option>
-                    <option>South Carolina</option>
-                    <option>South Dakota</option>
-                    <option>Tennessee</option>
-                    <option>Texas</option>
-                    <option>Utah</option>
-                    <option>Vermont</option>
-                    <option>Virginia</option>
-                    <option>Washington</option>
-                    <option>West Virginia</option>
-                    <option>Wisconsin</option>
-                    <option>Wyoming</option>
-                  </select>
-                </span>
-              </p>
+    <div class="block">
+      <div class="level" id="search-level">
+        <div class="level-item">
+          <div class="field has-addons">
+            <div class="control">
+              <!-- City Input Form -->
+              <input class="input" type="text" placeholder="Enter a City" id="brewery-search-city">
+
             </div>
-          </div>
-          <div class="control">
-            <!-- Search Button -->
-            <a class="button is-info" id="city-search-button">
-              <i class="fas fa-search"></i>
-            </a>
+            <div class="control">
+              <!-- Search Button -->
+              <a class="button is-info search-button">
+                <i class="fas fa-search"></i>
+              </a>
+            </div>
           </div>
         </div>
-        <div class="columns">
-          <div class="column is-3">
-            <div class="box" id="previous-breweries">
-              <h1 class="is-size-4 title has-text-centered has-background-dark has-text-white">My Breweries</h1>
-              <aside class="menu">
-                <ul class="menu-list" id="brewery-list">
-                </ul>
-              </aside>
+        <div class="level-item">
+          <div class="field has-addons">
+            <div class="control">
+              <span class="select">
+                <select id="state-select">
+                  <option value="Select Your State">Select Your State</option>
+                  <option value="Alabama">Alabama</option>
+                  <option value="Alaska">Alaska</option>
+                  <option value="Arizona">Arizona</option>
+                  <option value="Arkansas">Arkansas</option>
+                  <option value="California">California</option>
+                  <option value="Colorado">Colorado</option>
+                  <option value="Connecticut">Connecticut</option>
+                  <option value="Delaware">Delaware</option>
+                  <option value="District of Columbia">District of Columbia</option>
+                  <option value="Florida">Florida</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Hawaii">Hawaii</option>
+                  <option value="Idaho">Idaho</option>
+                  <option value="Illinois">Illinois</option>
+                  <option value="Indiana">Indiana</option>
+                  <option value="Iowa">Iowa</option>
+                  <option value="Kansas">Kansas</option>
+                  <option value="Kentucky">Kentucky</option>
+                  <option value="Louisiana">Louisiana</option>
+                  <option value="Maine">Maine</option>
+                  <option value="Maryland">Maryland</option>
+                  <option value="Massachusetts">Massachusetts</option>
+                  <option value="Michigan">Michigan</option>
+                  <option value="Minnesota">Minnesota</option>
+                  <option value="Mississippi">Mississippi</option>
+                  <option value="Missouri">Missouri</option>
+                  <option value="Montana">Montana</option>
+                  <option value="Nebraska">Nebraska</option>
+                  <option value="Nevada">Nevada</option>
+                  <option value="New Mexico">New Mexico</option>
+                  <option value="New York">New York</option>
+                  <option value="North Carolina">North Carolina</option>
+                  <option value="North Dakota">North Dakota</option>
+                  <option value="Ohio">Ohio</option>
+                  <option value="Oklahoma">Oklahoma</option>
+                  <option value="Oregon">Oregon</option>
+                  <option value="Pennsylvania">Pennsylvania</option>
+                  <option value="Rhode Island">Rhode Island</option>
+                  <option value="South Carolina">South Carolina</option>
+                  <option value="South Dakota">South Dakota</option>
+                  <option value="Tennessee">Tennessee</option>
+                  <option value="Texas">Texas</option>
+                  <option value="Utah">Utah</option>
+                  <option value="Vermont">Vermont</option>
+                  <option value="Virginia">Virginia</option>
+                  <option value="Washington">Washington</option>
+                  <option value="West Virginia">West Virginia</option>
+                  <option value="Wisconsin">Wisconsin</option>
+                  <option value="Wyoming">Wyoming</option>
+                </select>
+              </span>
             </div>
+            <div class="control">
+              <!-- Search Button -->
+              <a class="button is-info search-button">
+                <i class="fas fa-search"></i>
+              </a>
+            </div>
+
           </div>
-          <div class="column is-6">
-            <div class="box">
-              <!-- Map function -->
-              <h1 class="is-size-4 title has-text-centered has-background-dark has-text-white" id="map-location">Location</h1>
-              <div id="mapid"></div>
-            </div>
+        </div>
+      </div>
+
+
+      <div class="columns">
+        <div class="column is-3">
+          <div class="box" id="previous-breweries">
+            <h1 class="is-size-4 title has-text-centered has-background-dark has-text-white">My Breweries</h1>
+            <aside class="menu">
+              <ul class="menu-list" id="brewery-list">
+              </ul>
+            </aside>
           </div>
-          <div class="column is-3">
-            <div class="box" id="previous-breweries">
-              <h1 class="is-size-4 title has-text-centered has-background-dark has-text-white">Selected Brewery</h1>
-              <p><strong>Name</strong>: <span id="brewery-name"></span></p>
-              <p><strong>Type</strong>: <span id="brewery-type"></span></p>
-              <p><strong>Address</strong>: <span id="brewery-address"></span></p>
-              <p><strong>City</strong>: <span id="brewery-city"></span></p>
-              <p><strong>State</strong>: <span id="brewery-state"></span></p>
-              <p><strong>Zip Code</strong>: <span id="brewery-zip"></span></p>
-              <p><strong>Phone</strong>: <span id="brewery-phone"></span></p>
-              <p><strong>Website</strong>: <span id="brewery-website"></span></p>
-              <p><strong>Rating</strong>: <span id="brewery-rating"></p>
-            </div>
-            
+        </div>
+        <div class="column is-6">
+          <div class="box">
+            <!-- Map function -->
+            <h1 class="is-size-4 title has-text-centered has-background-dark has-text-white" id="map-location">Location
+            </h1>
+            <div id="mapid"></div>
+          </div>
+        </div>
+        <div class="column is-3">
+          <div class="box" id="previous-breweries">
+            <h1 class="is-size-4 title has-text-centered has-background-dark has-text-white">Selected Brewery</h1>
+            <p><strong>Name</strong>: <span id="brewery-name"></span></p>
+            <p><strong>Type</strong>: <span id="brewery-type"></span></p>
+            <p><strong>Address</strong>: <span id="brewery-address"></span></p>
+            <p><strong>City</strong>: <span id="brewery-city"></span></p>
+            <p><strong>State</strong>: <span id="brewery-state"></span></p>
+            <p><strong>Zip Code</strong>: <span id="brewery-zip"></span></p>
+            <p><strong>Phone</strong>: <span id="brewery-phone"></span></p>
+            <p><strong>Website</strong>: <span id="brewery-website"></span></p>
+            <p><strong>Rating</strong>: <span id="brewery-rating"></p>
           </div>
 
         </div>
 
-        <div class="columns">
-          <div class="column is-2">
-           <img src="https://pluspng.com/img-png/wwf-logo-vector-png-1920px-world-wildlife-fund-vector-logo-1920.png" alt="WWF Logo Test">
+      </div>
+
+      <div class="columns">
+        <div class="column is-2">
+          <img src="https://pluspng.com/img-png/wwf-logo-vector-png-1920px-world-wildlife-fund-vector-logo-1920.png"
+            alt="WWF Logo Test">
+        </div>
+        <div class="column is-8" id="results-column">
+          <table class="table is-narrow is-striped is-bordered is-hoverable" id="brewery-results">
+            <thead>
+              <tr class="has-background-dark has-text-white">
+                <th class="has-text-white has-text-centered">Name</th>
+                <th class="has-text-white has-text-centered">Address</th>
+                <th class="has-text-white has-text-centered">Phone</th>
+                <th class="has-text-white has-text-centered">Add Brewery</th>
+              </tr>
+            </thead>
+            <tbody id="brewery-table">
+            </tbody>
+          </table>
+          <div class="notification is-dark has-text-centered" id="no-breweries" style="display: none;">
+            <button class="delete"></button>
+            <p class="is-size-4">No breweries were found in <span id="city-state"></span> <i class="fas fa-sad-cry"></i>
+            </p>
+            <p>Seach another city?</p>
           </div>
-          <div class="column is-8" id="results-column">
-            <table class="table is-narrow is-striped is-bordered is-hoverable" id="brewery-results">
-              <thead>
-                <tr class="has-background-dark has-text-white">
-                  <th class="has-text-white has-text-centered">Name</th>
-                  <th class="has-text-white has-text-centered">Address</th>
-                  <th class="has-text-white has-text-centered">Phone</th>
-                  <th class="has-text-white has-text-centered">Add Brewery</th>
-                </tr>
-              </thead>
-              <tbody id="brewery-table">
-              </tbody>
-            </table>
-            <div class="notification is-dark has-text-centered" id="no-breweries" style="display: none;">
-              <button class="delete"></button>
-              <p class="is-size-4">No breweries were found in <span id="city-state"></span> <i class="fas fa-sad-cry"></i></p>
-              <p>Seach another city?</p>
-            </div>
-          </div>
-          <div class="column is-2">
-            <!-- Uber API functionality -->
-            <a href="https://www.uber.com" target="_blank" class="button is-dark is-large"><i class="fab fa-uber is-size-2"></i></a>
-           <p>Call an Uber to the brewery!</p> 
-          </div>         
-         </div>
+        </div>
+        <div class="column is-2">
+          <!-- Uber API functionality -->
+          <a href="https://www.uber.com" target="_blank" class="button is-dark is-large"><i
+              class="fab fa-uber is-size-2"></i></a>
+          <p>Call an Uber to the brewery!</p>
+        </div>
       </div>
     </div>
+  </div>
 
-    </div>
-    </div>
+  </div>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"

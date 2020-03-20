@@ -38,3 +38,11 @@ table th {
 .has-background-dark.has-text-white {
     border-radius: 5px;
 }
+
+#search-level {
+    margin: 0.5rem 20% 1rem 20%;
+}
+
+#logo {
+    line-height: 0.5rem;
+}
