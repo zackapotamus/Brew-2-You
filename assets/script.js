@@ -251,7 +251,7 @@ $(document).ready(function () {
             var nameTd = $("<td>").text(openBreweries[i].name);
             var streetTd = $("<td>").text(openBreweries[i].street);
             var phoneTd = $("<td>").text(openBreweries[i].phone);
-            var buttonTd = $("<td>").append($("<button>").text("Add").addClass("button is-primary add-button is-small").attr("data-index", i))
+            var buttonTd = $("<td>").addClass("has-text-centered").append($("<button>").text("Add").addClass("button is-info add-button is-small").attr("data-index", i))
             var tableRow = $("<tr>").append(nameTd).append(streetTd).append(phoneTd).append(buttonTd);
             breweryTable.append(tableRow);
         }
@@ -293,5 +293,6 @@ $(document).ready(function () {
 
     $("#twenty-one-plus").on("click", function () {
         $("#legal-modal").removeClass("is-active");
+        $("html").removeClass("is-clipped");
     })
 });

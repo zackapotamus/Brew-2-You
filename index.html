@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="is-clipped">
 
 <head>
   <meta charset="utf-8">
@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="assets/style.css">
 </head>
 
-<body>
+<body class="has-background-light">
   <div class="modal is-active" id="legal-modal">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -69,7 +69,7 @@
             <!-- City Input Form -->
             <input class="input" type="text" placeholder="Enter a City" id="brewery-search-city">
             <div class="field">
-              <label class="label">Package</label>
+              <!-- <label class="label">Package</label> -->
               <p class="control">
                 <span class="select">
                   <select>
@@ -175,13 +175,13 @@
            <img src="https://pluspng.com/img-png/wwf-logo-vector-png-1920px-world-wildlife-fund-vector-logo-1920.png" alt="WWF Logo Test">
           </div>
           <div class="column is-8" id="results-column">
-            <table class="table is-narrow is-striped is-bordered" id="brewery-results">
+            <table class="table is-narrow is-striped is-bordered is-hoverable" id="brewery-results">
               <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Address</th>
-                  <th>Phone</th>
-                  <th>Add Brewery</th>
+                <tr class="has-background-dark has-text-white">
+                  <th class="has-text-white has-text-centered">Name</th>
+                  <th class="has-text-white has-text-centered">Address</th>
+                  <th class="has-text-white has-text-centered">Phone</th>
+                  <th class="has-text-white has-text-centered">Add Brewery</th>
                 </tr>
               </thead>
               <tbody id="brewery-table">

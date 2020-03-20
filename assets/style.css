@@ -30,3 +30,11 @@
     width: 100%;
 }
 
+table td,
+table th {
+    vertical-align: middle !important;
+}
+
+.has-background-dark.has-text-white {
+    border-radius: 5px;
+}
