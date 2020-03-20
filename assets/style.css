@@ -60,6 +60,15 @@ table th {
   display: none;
 }
 
+* {
+    box-sizing: border-box
+}
+
+.columns,
+.columns:last-child {
+    margin: 0
+}
+
 @media only screen and (max-width: 600px) {
   #back-button {
     display: block;
