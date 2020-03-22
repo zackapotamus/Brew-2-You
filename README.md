@@ -6,6 +6,7 @@ Discover, rate, and go to breweries/beer
 Jessie Everett, Ricardo Russ, and Zack Hayden
 
 # Features:
+On page load, the IPinfo.io api will automatically grab the user's location through their IP address.
 
 A splash page that inquires if the user is 21 before allowing them to proceed.
 
