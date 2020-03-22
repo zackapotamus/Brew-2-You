@@ -70,6 +70,12 @@ table th {
     margin: 0
 }
 
+.columns {
+    margin-left: -.75rem;
+    /* margin-right: -.75rem; */
+    margin-top: -.75rem;
+}
+
 @media only screen and (max-width: 1023px) {
     #back-button {
         display: block;
