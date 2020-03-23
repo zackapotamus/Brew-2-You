@@ -1,7 +1,10 @@
 // VARIABLES:
 class OpenBrewery {
-    constructor(id, name, type, street, city, state, zip, country, lat, lon, phone, website, taglist) {
+    constructor(id, name, type, street, city, state, zip, country, lat, lon, phone, website, taglist, date) {
         this.id = id;
+        // unique identifier
+        this.date = moment.now();
+        // date 
         this.name = name;
         // Name of Brewery
         this.type = type;
@@ -26,6 +29,7 @@ class OpenBrewery {
         // Website of Brewery
         this.taglist = taglist || [];
         this.rating = 0;
+        this.date = date || moment();
     }
 }
 var openBreweries = [];
@@ -62,6 +66,7 @@ $(document).ready(function () {
             }
         }
         $("#brewery-name").text(brewery.name);
+        $("#brewery-date").text(moment(brewery.date).format("MMMM Do, YYYY"));
         $("#brewery-type").text(brewery.type);
         $("#brewery-address").text(brewery.street);
         $("#brewery-city").text(brewery.city);
@@ -264,7 +269,8 @@ $(document).ready(function () {
             breweryTable.append(tableRow);
         }
         $(".add-button").on("click", function () {
-            addBrewery(openBreweries[$(this).attr("data-index")]);
+            var thisBrewery = openBreweries[$(this).attr("data-index")]
+            addBrewery(thisBrewery);
         });
 
     }
@@ -306,6 +312,7 @@ $(document).ready(function () {
         for (var i = 0; i < pastBreweries.length; i++) {
             if (pastBreweries[i].id === brewery.id) return;
         }
+        brewery.date = moment();
         pastBreweries.push(brewery);
         localStorage.setItem("pastBreweries", JSON.stringify(pastBreweries));
         loadFromLocalStorage();
