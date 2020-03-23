@@ -69,6 +69,10 @@ table th {
     display: none;
 }
 
+#uber-button {
+    width: 50%;
+}
+
 * {
     box-sizing: border-box
 }
