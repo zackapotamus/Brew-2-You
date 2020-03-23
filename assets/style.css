@@ -6,6 +6,10 @@ body {
     height: 400px;
 }
 
+a#NavLink:hover {
+    background-color: #363636;
+}
+
 .brewery-item {
     border-bottom: 1px solid rgb(233, 233, 233);
 }
