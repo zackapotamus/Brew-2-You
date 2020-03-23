@@ -57,6 +57,14 @@ table th {
     align-items: center;
 }
 
+#uber-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    text-align: center;
+}
+
 #back-button {
     display: none;
 }
