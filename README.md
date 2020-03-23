@@ -1,4 +1,4 @@
-# You-2-Brew
+# Brew-2-You
 Discover, rate, and go to breweries/beer
 
 
