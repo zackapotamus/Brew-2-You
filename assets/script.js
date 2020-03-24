@@ -267,6 +267,7 @@ $(document).ready(function () {
     }
 
     function cityStateDisplay() {
+        myState = stateAbbreviations[myState] || myState;
         if (myCity && myState) {
             return `${myCity}, ${myState}`;
         } else if (myCity && !myState) {
