@@ -107,6 +107,19 @@ table th {
 }
 
 @media(max-width: 767px) {
+    .ordered-mobile {
+        display: flex;
+        flex-flow: column;
+    }
+    .ordered-mobile .mobile-1 {
+        order: 1;
+    }
+    .ordered-mobile .mobile-2 {
+        order: 2;
+    }
+    .ordered-mobile .mobile-3 {
+        order: 3;
+    }
 
     #mapid {
         height: 275px;
