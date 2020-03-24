@@ -32,6 +32,68 @@ class OpenBrewery {
         this.date = date || moment();
     }
 }
+var stateAbbreviations = {
+    Alabama: "AL",
+    Alaska: "AK",
+    Arizona: "AZ",
+    Arkansas: "AR",
+    California: "CA",
+    Colorado: "CO",
+    Connecticut: "CT",
+    Delaware: "DE",
+    Florida: "FL",
+    Georgia: "GA",
+    Hawaii: "HI",
+    Idaho: "ID",
+    Illinois: "IL",
+    Indiana: "IN",
+    Iowa: "IA",
+    Kansas: "KS",
+    Kentucky: "KY",
+    Louisiana: "LA",
+    Maine: "ME",
+    Maryland: "MD",
+    Massachusetts: "MA",
+    Michigan: "MI",
+    Minnesota: "MN",
+    Mississippi: "MS",
+    Missouri: "MO",
+    Montana: "MT",
+    Nebraska: "NE",
+    Nevada: "NV",
+    "New Hampshire": "NH",
+    "New Jersey": "NJ",
+    "New Mexico": "NM",
+    "New York": "NY",
+    "North Carolina": "NC",
+    "North Dakota": "ND",
+    Ohio: "OH",
+    Oklahoma: "OK",
+    Oregon: "OR",
+    Pennsylvania: "PA",
+    "Rhode Island": "RI",
+    "South Carolina": "SC",
+    "South Dakota": "SD",
+    Tennessee: "TN",
+    Texas: "TX",
+    Utah: "UT",
+    Vermont: "VT",
+    Virginia: "VA",
+    Washington: "WA",
+    "West Virginia": "WV",
+    Wisconsin: "WI",
+    Wyoming: "WY",
+    "District of Columbia": "DC",
+    "Marshall Islands": "MH",
+    "Armed Forces Africa": "AE",
+    "Armed Forces Americas": "AA",
+    "Armed Forces Canada": "AE",
+    "Armed Forces Europe": "AE",
+    "Armed Forces Middle East": "AE",
+    "Armed Forces Pacific": "AP"
+}
+var _myMap;
+
 var openBreweries = [];
 var pastBreweries = [];
 var selectedBrewery = null;
@@ -39,80 +101,27 @@ var selectedBreweryIndex = -1;
 
 $(document).ready(function () {
     // Function to load from localStorage
-    function loadFromLocalStorage() {
-        pastBreweries = JSON.parse(localStorage.getItem("pastBreweries")) || [];
-        updatePastBreweryDisplay();
-        $(".past-brewery").on("click", function (event) {
-            event.preventDefault();
-            _this = $(this).first();
-            if (selectedBrewery) {
-                selectedBrewery.removeClass("is-active");
-            }
-            selectedBrewery = _this;
-            selectedBreweryIndex = _this.attr("data-index");
-            updateSelectedBreweryDisplay();
-            _this.addClass("is-active");
-        });
-    }
-    // Function that adds data to selected brewery display on page load/on button click 
-    function updateSelectedBreweryDisplay() {
-        var brewery = pastBreweries[selectedBreweryIndex];
-        var rating = "";
-        for (var i = 0; i < 5; i++) {
-            if (i < brewery.rating) {
-                rating += "<span class=\"fa fa-star checked-star\" data-rating=\"" + (i + 1) + "\"></span>";
-            } else {
-                rating += "<span class=\"fa fa-star\" data-rating=\"" + (i + 1) + "\"></span>";
-            }
-        }
-        $("#brewery-name").text(brewery.name);
-        $("#brewery-date").text(moment(brewery.date).format("MMMM Do, YYYY"));
-        $("#brewery-type").text(brewery.type);
-        $("#brewery-address").text(brewery.street);
-        $("#brewery-city").text(brewery.city);
-        $("#brewery-state").text(brewery.state);
-        $("#brewery-zip").text(brewery.zip);
-        $("#brewery-phone").text(brewery.phone);
-        if (brewery.website) {
-            $("#brewery-website").html(`<a href="${brewery.website}" target="_blank">${brewery.website}</a>`)
-        } else {
-            $("#brewery-website").empty();
-        }
-        $("#brewery-rating").html(rating);
-        $(".fa-star").on("click", function () {
-            brewery.rating = parseInt($(this).attr("data-rating"))
-            localStorage.setItem("pastBreweries", JSON.stringify(pastBreweries));
-            updateSelectedBreweryDisplay();
-        })
-    }
-    // Function that updates the past brewery display following an on click event
-    function updatePastBreweryDisplay() {
-
-        var breweryList = $("#brewery-list").empty();
-        for (var i = 0; i < pastBreweries.length; i++) {
-            var listNode = $("<li>").addClass("brewery-item");
-            var linkNode = $("<a>").attr("href", "#").attr("data-index", i).addClass("past-brewery").text(pastBreweries[i].name);
-            if (i == selectedBreweryIndex) {
-                linkNode.addClass("is-active");
-                selectedBrewery = linkNode;
-            }
-            listNode.append(linkNode);
-            breweryList.append(listNode);
-        }
-    }
-
-
-    loadFromLocalStorage();
+    var $window = $(window);
+    var mapLocation = $("#map-location");
+    var isFirstLoad = true;
     var searchBtn = $(".search-button");
+    var myBreweriesColumn = $("#my-breweries-column");
+    var locationColumn = $("#location-column");
+    var selectedBreweryColumn = $("#selected-brewery-column");
+    var breweryList = $("#brewery-list");
     // Search Button 
     var citySearch = $("#brewery-search-city");
     var stateSelect = $("#state-select");
     // Search Input Field
-    var myMap = L.map('mapid').setView([33.7490, 84.3880], 12);
+    // var myMap = L.map('mapid').setView([33.7490, 84.3880], 12);
+    var myMap = L.map('mapid').setView([39.8283, -98.5795], 4);
+    _myMap = myMap;
     // Map variable
     var myLat, myLong;
     var myCity, myState;
     var markers = [];
+
+    loadFromLocalStorage();
 
     // Api Call for MapBox api
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -140,7 +149,7 @@ $(document).ready(function () {
     function breweryResult(city, state) {
         myCity = city;
         myState = state;
-        $("#map-location").text(cityStateDisplay());
+        mapLocation.text(cityStateDisplay());
         var latitudes = 0;
         var longitudes = 0;
         var latLongCount = 0;
@@ -148,17 +157,19 @@ $(document).ready(function () {
         var zipMap = {};
         var data = {
             by_city: city,
+            by_state: state,
             per_page: 50
         }
-        if (state) {
-            data.by_state = state;
-        }
+        // if (state) {
+        //     data.by_state = state;
+        // }
 
         $.ajax({
             url: "https://api.openbrewerydb.org/breweries",
             method: "GET",
             data: data
         }).then(function (response) {
+            var states = [];
             openBreweries = [];
             for (var i = 0; i < response.length; i++) {
                 openBreweries.push(new OpenBrewery(response[i].id, response[i].name, response[i].brewery_type, response[i].street,
@@ -172,6 +183,12 @@ $(document).ready(function () {
                         type: response[i].brewery_type
                     }
                 }
+                if (!state) {
+                    // probably not very efficient
+                    if (states.indexOf(response[i].state) == -1) {
+                        states.push(response[i].state)
+                    }
+                }
                 if (!response[i].longitude) continue;
                 var lat = parseFloat(response[i].latitude);
                 var lon = parseFloat(response[i].longitude);
@@ -182,10 +199,22 @@ $(document).ready(function () {
                 marker.bindPopup(`<strong>${response[i].name}</strong><br>${response[i].brewery_type}`).openPopup();
                 markers.push(marker);
             }
+            for (var i = 0; i < states.length; i++) {
+                states[i] = stateAbbreviations[states[i]];
+            }
+            if (states.length == 1) {
+                myState = states[0];
+            } else if (states.length > 1) {
+                myState = states.join(" ");
+            }
+            mapLocation.text(cityStateDisplay());
             if (latLongCount > 0) {
                 var latitude = latitudes / latLongCount;
                 var longitude = longitudes / latLongCount;
-                if (!city) {
+                console.log(states);
+                if (states.length > 1) {
+                    myMap.setView([latitude, longitude], 4);
+                } else if (!city) {
                     myMap.setView([latitude, longitude], 8);
                 } else {
                     myMap.setView([latitude, longitude], 12);
@@ -200,11 +229,12 @@ $(document).ready(function () {
                     method: "GET",
                 }).then(function (response) {
                     console.log(response);
-                    console.log("inside the ajax 'then'")
+                    // console.log("inside the ajax 'then'")
                     var lats = 0;
                     var longs = 0;
                     var latLongCount = 0;
                     var zipCodes = Object.keys(response);
+                    console.log(zipCodes);
                     for (var i = 0; i < zipCodes.length; i++) {
                         console.log(response[zipCodes[i]]);
                         var lat = response[zipCodes[i]].lat;
@@ -220,7 +250,13 @@ $(document).ready(function () {
                     var latitude = lats / latLongCount;
                     var longitude = longs / latLongCount;
                     if (latLongCount > 0) {
-                        myMap.setView([latitude, longitude], 12);
+                        if (states.length == 1) {
+                            myMap.setView([latitude, longitude], 12);
+                        } else {
+                            myMap.setView([latitude, longitude], 4);
+                        }
+                    } else {
+                        myMap.setView([39.8283, -98.5795], 4);
                     }
                 });
             }
@@ -241,6 +277,13 @@ $(document).ready(function () {
     }
     // Populates table with the data called from the breweryResult function
     function populateTable() {
+        if (!isFirstLoad) {
+            // document.location = "#location-column";
+            $window.scrollTo(locationColumn, 700);
+        } else {
+            isFirstLoad = false;
+        }
+
         breweryResultsTable = $("#brewery-results");
         cityStateSpan = $("#city-state");
         noBreweriesNotification = $("#no-breweries");
@@ -275,9 +318,101 @@ $(document).ready(function () {
 
     }
 
-    searchBtn.on("click", function (event) {
-        doSearch();
-    });
+    function addBreweryToListAndLocalStorage(brewery) {
+        pastBreweries.push(brewery);
+        localStorage.setItem("pastBreweries", JSON.stringify(pastBreweries));
+        addMyBreweryListItem(brewery);
+    }
+
+    function loadFromLocalStorage() {
+        pastBreweries = JSON.parse(localStorage.getItem("pastBreweries")) || [];
+        populatePastBreweries();
+        $(".past-brewery").on("click", function (event) {
+            event.preventDefault();
+            _this = $(this);
+            if (selectedBrewery) {
+                selectedBrewery.removeClass("is-active");
+            }
+            selectedBrewery = _this;
+            selectedBreweryIndex = _this.attr("data-index");
+            updateSelectedBreweryDisplay();
+            _this.addClass("is-active");
+        });
+    }
+
+    function updateSelectedBreweryDisplay() {
+        if (selectedBreweryIndex < 0) return;
+        var brewery = pastBreweries[selectedBreweryIndex];
+        var rating = "";
+        for (var i = 0; i < 5; i++) {
+            if (i < brewery.rating) {
+                rating += "<span class=\"fa fa-star checked-star\" data-rating=\"" + (i + 1) + "\"></span>";
+            } else {
+                rating += "<span class=\"fa fa-star\" data-rating=\"" + (i + 1) + "\"></span>";
+            }
+        }
+        $("#brewery-name").text(brewery.name);
+        $("#brewery-date").text(moment(brewery.date).format("MMMM Do, YYYY"));
+        $("#brewery-type").text(brewery.type);
+        $("#brewery-address").text(brewery.street);
+        $("#brewery-city").text(brewery.city);
+        $("#brewery-state").text(brewery.state);
+        $("#brewery-zip").text(brewery.zip);
+        $("#brewery-phone").text(brewery.phone);
+        if (brewery.website) {
+            $("#brewery-website").html(`<a href="${brewery.website}" target="_blank">${brewery.website}</a>`)
+        } else {
+            $("#brewery-website").empty();
+        }
+        $("#brewery-rating").html(rating);
+        $(".fa-star").on("click", function () {
+            brewery.rating = parseInt($(this).attr("data-rating"))
+            localStorage.setItem("pastBreweries", JSON.stringify(pastBreweries));
+            updateSelectedBreweryDisplay();
+        })
+    }
+
+    function populatePastBreweries() {
+        breweryList.empty();
+        var listNode, linkNode;
+        if (!pastBreweries.length) return;
+        for (var i = 0; i < pastBreweries.length; i++) {
+            listNode = $("<li>").addClass("brewery-item");
+            linkNode = $("<a>").attr("href", "#").attr("data-index", i).attr("id", `brewery-id-${pastBreweries[i].id}`).addClass("past-brewery").text(pastBreweries[i].name);
+            listNode.append(linkNode);
+            breweryList.append(listNode);
+        }
+        linkNode.addClass("is-active");
+        selectedBreweryIndex = pastBreweries.length - 1;
+        selectedBrewery = linkNode;
+        updateSelectedBreweryDisplay();
+    }
+
+    function addMyBreweryListItem(brewery) {
+        if (selectedBrewery) {
+            selectedBrewery.removeClass("is-active");
+        }
+        selectedBreweryIndex = pastBreweries.length - 1;
+        var listNode = $("<li>").addClass("brewery-item");
+        var linkNode = $("<a>").attr("href", "#").attr("data-index", selectedBreweryIndex).attr("id", `brewery-id-${brewery.id}`).addClass("past-brewery is-active").text(brewery.name);
+        selectedBrewery = linkNode;
+        listNode.append(linkNode);
+        breweryList.append(listNode);
+        updateSelectedBreweryDisplay()
+        linkNode.on("click", function (event) {
+            event.preventDefault();
+            _this = $(this);
+            if (selectedBrewery) {
+                selectedBrewery.removeClass("is-active");
+            }
+            selectedBrewery = _this;
+            selectedBreweryIndex = _this.attr("data-index");
+            updateSelectedBreweryDisplay();
+            _this.addClass("is-active");
+        });
+        $window.scrollTo(selectedBreweryColumn, 700);
+
+    }
 
     function doSearch() {
         event.preventDefault();
@@ -296,6 +431,14 @@ $(document).ready(function () {
         }
     }
 
+    function addBrewery(brewery) {
+        for (var i = 0; i < pastBreweries.length; i++) {
+            if (pastBreweries[i].id === brewery.id) return;
+        }
+        brewery.date = moment();
+        addBreweryToListAndLocalStorage(brewery);
+    }
+
     citySearch.on('keyup', function (e) {
         if (e.keyCode === 13) {
             doSearch()
@@ -308,18 +451,12 @@ $(document).ready(function () {
         }
     });
 
-    function addBrewery(brewery) {
-        for (var i = 0; i < pastBreweries.length; i++) {
-            if (pastBreweries[i].id === brewery.id) return;
-        }
-        brewery.date = moment();
-        pastBreweries.push(brewery);
-        localStorage.setItem("pastBreweries", JSON.stringify(pastBreweries));
-        loadFromLocalStorage();
-    }
-
     $("#twenty-one-plus").on("click", function () {
         $("#legal-modal").removeClass("is-active");
         $("html").removeClass("is-clipped");
-    })
+    });
+
+    searchBtn.on("click", function (event) {
+        doSearch();
+    });
 });
