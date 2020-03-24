@@ -68,7 +68,7 @@
     </div>
   </nav>
   <div class="container">
-    <div class="block">
+    <div class="block" id="navigation">
       <div class="level" id="search-level">
         <div class="level-item">
           <div class="field has-addons">
@@ -156,7 +156,7 @@
 
 
       <div class="columns ordered-mobile">
-        <div class="column is-3 mobile-2">
+        <div class="column is-3 mobile-1" id="my-breweries-column">
           <div class="box" id="previous-breweries">
             <h1 class="is-size-4 title has-text-centered has-background-dark has-text-white">My Breweries</h1>
             <aside class="menu">
@@ -165,7 +165,7 @@
             </aside>
           </div>
         </div>
-        <div class="column is-6 mobile-1">
+        <div class="column is-6 mobile-3" id="location-column">
           <div class="box">
             <!-- Map function -->
             <h1 class="is-size-4 title has-text-centered has-background-dark has-text-white" id="map-location">Location
@@ -173,7 +173,7 @@
             <div id="mapid"></div>
           </div>
         </div>
-        <div class="column is-3 mobile-3">
+        <div class="column is-3 mobile-2" id="selected-brewery-column">
           <div class="box" id="previous-breweries">
             <h1 class="is-size-4 title has-text-centered has-background-dark has-text-white">Selected Brewery</h1>
             <p><strong>Name</strong>: <span id="brewery-name"></span></p>
@@ -227,10 +227,11 @@
               <p>Call an Uber to the brewery!</p>
             </li>
           </ul>
-          
-          
+
+
         </div>
-        <a id="back-button" href="contact.html" class="button is-dark">Contact us!&nbsp;<i class="fas fa-backspace"></i></a>
+        <a id="back-button" href="contact.html" class="button is-dark">Contact us!&nbsp;<i
+            class="fas fa-backspace"></i></a>
       </div>
     </div>
   </div>
@@ -244,6 +245,7 @@
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
     crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
   <script src="assets/script.js"></script>
 
 </body>

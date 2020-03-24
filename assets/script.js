@@ -39,10 +39,9 @@ var selectedBreweryIndex = -1;
 
 $(document).ready(function () {
     // Function to load from localStorage
-
-    loadFromLocalStorage();
+    var $window = $(window);
+    var isFirstLoad = true;
     var searchBtn = $(".search-button");
-    var topRowColumns = $("#top-row-columns");
     var myBreweriesColumn = $("#my-breweries-column");
     var locationColumn = $("#location-column");
     var selectedBreweryColumn = $("#selected-brewery-column");
@@ -56,6 +55,7 @@ $(document).ready(function () {
     var myCity, myState;
     var markers = [];
 
+    loadFromLocalStorage();
     // Api Call for MapBox api
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -183,6 +183,13 @@ $(document).ready(function () {
     }
     // Populates table with the data called from the breweryResult function
     function populateTable() {
+        if (!isFirstLoad) {
+            // document.location = "#location-column";
+            $window.scrollTo(locationColumn, 700);
+        } else {
+            isFirstLoad = false;
+        }
+
         breweryResultsTable = $("#brewery-results");
         cityStateSpan = $("#city-state");
         noBreweriesNotification = $("#no-breweries");
@@ -316,6 +323,7 @@ $(document).ready(function () {
         pastBreweries.push(brewery);
         localStorage.setItem("pastBreweries", JSON.stringify(pastBreweries));
         loadFromLocalStorage();
+        $window.scrollTo(myBreweriesColumn, 700);
     }
 
     $("#twenty-one-plus").on("click", function () {
